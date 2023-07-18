@@ -2,7 +2,7 @@
 
 ## Descrição do Projeto 📝
 
-O projeto Serviço Curso é um projeto acadêmico desenvolvido para integrar diversos tipos de serviços utilizando a linguagem C#. O objetivo principal é criar um sistema CRUD (Create, Read, Update, Delete) para gerenciar informações persistidas em um banco de dados, além de hospedar a aplicação em servidores.
+O Serviço Curso é um projeto acadêmico desenvolvido para integrar diversos tipos de serviços utilizando a linguagem C#. O objetivo principal é criar um sistema CRUD (Create, Read, Update, Delete) para gerenciar informações persistidas em um banco de dados, além de hospedar a aplicação em servidores.
 
 ## Funcionalidades do Projeto ⚙️
 
@@ -38,7 +38,9 @@ Não há previsão para continuação do projeto neste momento.
 
 ## Colaboradores 👥
 
-- Deixe este campo em aberto para preenchimento futuro.
+- [Matheus Augusto](https://github.com/matheusaugusto61)
+- [Ricardo Alexandre](https://github.com/ricardo55991)
+- [Thiago Felipe](https://github.com/thiagonfss)
 
 ## Status do Projeto 🚧
 
