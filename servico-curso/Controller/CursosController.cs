@@ -1,18 +1,17 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace Servico_Curso.Controller
 {
     public class CursosController : ApiController
     {
-        // GET api/<controller>
-        public IEnumerable<string> Get()
+        [HttpGet]
+        public async Task<IEnumerable<int>> BuscarCursos()
         {
-            return new string[] { "value1", "value2" };
+            return Enumerable.Empty<int>();
         }
 
         // GET api/<controller>/5

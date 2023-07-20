@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http.Formatting;
 using System.Web;
 using System.Web.Http;
 using System.Web.Optimization;
@@ -13,11 +14,7 @@ namespace servico_curso
             // Code that runs on application startup
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            RouteTable.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = System.Web.Http.RouteParameter.Optional }
-            );
+            GlobalConfiguration.Configure(WebApiConfig.Register);
         }
     }
 }
