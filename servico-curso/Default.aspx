@@ -5,10 +5,9 @@
     <main>
         <div>
             <h2>Login</h2>
-            <asp:Label ID="lblMessage" runat="server" Visible="false" />
-            <asp:TextBox ID="txtUsername" runat="server" placeholder="Usuário" /><br />
+            <asp:TextBox ID="txtUsername" runat="server" placeholder="Usuário"/><br />
             <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" placeholder="Senha" /><br />
-            <asp:Button ID="btnLogin" runat="server" Text="Login" />
+            <asp:Button ID="btnLogin" runat="server" Text="Login" OnClick="BtnLogin_Click" />
         </div>
     </main>
 
