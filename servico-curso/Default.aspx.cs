@@ -55,7 +55,7 @@ namespace servico_curso
 
             if (!usuario.SenhaValidada)
             {
-                Response.Write($"alert('<script>{usuario.Nome} a senha informada esta incorreta')</script>");
+                Response.Write($"<script>alert('{usuario.Nome} a senha informada esta incorreta')</script>");
                 return;
             }
 
