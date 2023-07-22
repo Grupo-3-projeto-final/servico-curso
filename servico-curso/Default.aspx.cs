@@ -60,7 +60,7 @@ namespace servico_curso
             }
 
             // redirecionar para tela de cadastro de curso
-
+            Response.Write("<script>window.location.href = '/Cursos' </script>");
         }
 
     }
