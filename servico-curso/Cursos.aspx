@@ -13,7 +13,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <title><%: Page.Title %>- My ASP.NET Application</title>
 
     <%--<asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -32,6 +32,9 @@
                 <asp:BoundField DataField="ValorCurso" HeaderText="Preço" />
             </Columns>
         </asp:GridView>
+        <asp:Button ID="InsertButton" runat="server" Text="Inserir" />
+        <asp:Button ID="EditButton" runat="server" Text="Editar" />
+        <asp:Button ID="DeleteButton" runat="server" Text="Deletar" />
     </form>
 </body>
 </html>
