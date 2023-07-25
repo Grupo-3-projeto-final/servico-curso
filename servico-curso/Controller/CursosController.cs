@@ -3,8 +3,8 @@
 using servico_curso.Model;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -43,23 +43,23 @@ namespace Servico_Curso.Controller
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-            /// <summary>
-            /// Busca as informações de um curso com base no Id informado
-            /// </summary>
-            /// <param name="id">Parâmetro obrigatório a ser informado para realizar a busca por Id.</param>
-            /// <returns></returns>
-            [HttpGet]
+        /// <summary>
+        /// Busca as informações de um curso com base no Id informado
+        /// </summary>
+        /// <param name="id">Parâmetro obrigatório a ser informado para realizar a busca por Id.</param>
+        /// <returns></returns>
+        [HttpGet]
         public async Task<HttpResponseMessage> BuscarCurso(int id)
         {
             try
             {
                 CursoModel curso = _cursoModel;
 
-                curso =  await curso.BuscarCurso(id);
-                
+                curso = await curso.BuscarCurso(id);
+
                 if (curso == null)
                     return Request.CreateResponse(HttpStatusCode.NotFound);
-                
+
                 return Request.CreateResponse(HttpStatusCode.OK, curso);
             }
             catch (Exception ex)

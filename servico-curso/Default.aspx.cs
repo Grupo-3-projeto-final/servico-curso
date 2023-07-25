@@ -1,12 +1,7 @@
 ﻿using Microsoft.Ajax.Utilities;
 using servico_curso.Model;
-using Servico_Curso.Controller;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace servico_curso
 {
@@ -28,7 +23,7 @@ namespace servico_curso
             if (Email.IsNullOrWhiteSpace())
             {
                 Response.Write("<script>alert('Favor informar um email válido.')</script>");
-                return ;
+                return;
             }
 
             if (Senha.IsNullOrWhiteSpace())

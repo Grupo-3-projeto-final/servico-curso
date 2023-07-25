@@ -1,11 +1,6 @@
 ﻿using Microsoft.Ajax.Utilities;
-using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.EnterpriseServices;
 using System.Linq;
-using System.Net.Mail;
-using System.Web;
 
 namespace servico_curso.Model
 {
@@ -22,7 +17,7 @@ namespace servico_curso.Model
 
         //usuarioCadastrado
 
-        public Usuario(string email, string senha) 
+        public Usuario(string email, string senha)
         {
             this.Email = email;
             this.Senha = senha;
@@ -30,7 +25,7 @@ namespace servico_curso.Model
 
         public Usuario CarregarDadosUsuario()
         {
-            if (Email.IsNullOrWhiteSpace()) 
+            if (Email.IsNullOrWhiteSpace())
                 return null;
 
             //Mudar para banco
@@ -54,14 +49,14 @@ namespace servico_curso.Model
             if (!UsuariosTeste.Any())
                 CarregarUsuarios();
 
-            var usuario = UsuariosTeste.Where(x => x.Email.Equals(email)).FirstOrDefault();
+            Usuario usuario = UsuariosTeste.Where(x => x.Email.Equals(email)).FirstOrDefault();
 
             return usuario;
         }
 
         private void CarregarUsuarios()
         {
-            UsuariosTeste.Add(new Usuario("teste1","123")
+            UsuariosTeste.Add(new Usuario("teste1", "123")
             {
                 Id = 1,
                 Nome = "João",

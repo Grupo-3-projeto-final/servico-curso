@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace servico_curso.Model
 {
@@ -15,7 +14,7 @@ namespace servico_curso.Model
         public int CodigoPrecoCurso { get; set; }
         public float ValorCurso { get; set; }
         public bool Ativo { get; set; }
-        private static readonly string connectionString = 
+        private static readonly string connectionString =
             System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
         public async Task<List<CursoModel>> BuscarCursos(bool? ativo)
@@ -67,14 +66,14 @@ namespace servico_curso.Model
 
             if (ativo.HasValue)
             {
-                cursos = cursos.Where(x=>x.Ativo == ativo.Value).ToList();
+                cursos = cursos.Where(x => x.Ativo == ativo.Value).ToList();
             }
 
             return await Task.FromResult(cursos);
         }
         public async Task<CursoModel> BuscarCurso(int codigoCurso)
         {
-            if (codigoCurso <= 0) 
+            if (codigoCurso <= 0)
                 return null;
 
             CursoModel curso = new CursoModel();

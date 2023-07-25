@@ -2,7 +2,6 @@
 using Npgsql;
 using servico_curso.Model;
 using System;
-using System.Globalization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -216,7 +215,7 @@ namespace servico_curso
         protected void EditarClick(object sender, EventArgs e)
         {
             // Verificar se todos os campos estão preenchidos corretamente e definir a visibilidade do botão
-            if (NomeCursoSelect.SelectedValue.IsNullOrWhiteSpace() || DescricaoCurso.Text.IsNullOrWhiteSpace()|| ValorCurso.Text.IsNullOrWhiteSpace())
+            if (NomeCursoSelect.SelectedValue.IsNullOrWhiteSpace() || DescricaoCurso.Text.IsNullOrWhiteSpace() || ValorCurso.Text.IsNullOrWhiteSpace())
             {
                 BotaoEditar.Visible = false;
                 return;

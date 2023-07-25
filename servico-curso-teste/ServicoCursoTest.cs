@@ -1,21 +1,13 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Moq;
 using servico_curso.Model;
 using Servico_Curso.Controller;
-using Xunit;
-
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
-using Moq;
 
 public class CursosControllerTests
 {
@@ -23,7 +15,7 @@ public class CursosControllerTests
     public async Task DeveRetornarOKEListaDeCursos()
     {
         // Arrange
-        var mockCursoModel = new Mock<CursoModel>();
+        Mock<CursoModel> mockCursoModel = new Mock<CursoModel>();
 
         bool ativo = true;
         List<CursoModel> cursosMock = new List<CursoModel>
@@ -41,10 +33,10 @@ public class CursosControllerTests
 
         mockCursoModel.Setup(x => x.BuscarCursos(ativo)).Returns(Task.FromResult(cursosMock));
 
-        var controller = new CursosController(mockCursoModel.Object);
+        CursosController controller = new CursosController(mockCursoModel.Object);
 
         // Act
-        var response = await controller.BuscarCursos(ativo);
+        HttpResponseMessage response = await controller.BuscarCursos(ativo);
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -56,7 +48,7 @@ public class CursosControllerTests
     public async Task DeveRetornarOKEEncontrarCurso()
     {
         // Arrange
-        var mockCursoModel = new Mock<CursoModel>();
+        Mock<CursoModel> mockCursoModel = new Mock<CursoModel>();
 
         int codigoCurso = 1;
         CursoModel cursoMock = new CursoModel
@@ -71,10 +63,10 @@ public class CursosControllerTests
 
         mockCursoModel.Setup(x => x.BuscarCurso(codigoCurso)).Returns(Task.FromResult(cursoMock));
 
-        var controller = new CursosController(mockCursoModel.Object);
+        CursosController controller = new CursosController(mockCursoModel.Object);
 
         // Act
-        var response = await controller.BuscarCurso(codigoCurso);
+        HttpResponseMessage response = await controller.BuscarCurso(codigoCurso);
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -86,15 +78,15 @@ public class CursosControllerTests
     public async Task DeveRetornarNotFoundEListaVazia()
     {
         // Arrange
-        var mockCursoModel = new Mock<CursoModel>();
+        Mock<CursoModel> mockCursoModel = new Mock<CursoModel>();
         bool ativo = true;
         List<CursoModel> cursosMock = new List<CursoModel>();
         mockCursoModel.Setup(x => x.BuscarCursos(ativo)).Returns(Task.FromResult(cursosMock));
 
-        var controller = new CursosController(mockCursoModel.Object);
+        CursosController controller = new CursosController(mockCursoModel.Object);
 
         // Act
-        var response = await controller.BuscarCursos(ativo);
+        HttpResponseMessage response = await controller.BuscarCursos(ativo);
 
         // Assert
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
@@ -103,14 +95,14 @@ public class CursosControllerTests
     public async Task DeveRetornarNotFoundENaoEncontrarCurso()
     {
         // Arrange
-        var mockCursoModel = new Mock<CursoModel>();
+        Mock<CursoModel> mockCursoModel = new Mock<CursoModel>();
         int codigoCurso = 1;
         mockCursoModel.Setup(x => x.BuscarCurso(codigoCurso)).Returns(Task.FromResult<CursoModel>(null));
 
-        var controller = new CursosController(mockCursoModel.Object);
+        CursosController controller = new CursosController(mockCursoModel.Object);
 
         // Act
-        var response = await controller.BuscarCurso(codigoCurso);
+        HttpResponseMessage response = await controller.BuscarCurso(codigoCurso);
 
         // Assert
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
@@ -119,15 +111,15 @@ public class CursosControllerTests
     public async Task TestBuscarCursos_WhenExceptionOccurs_ReturnsInternalServerError()
     {
         // Arrange
-        var mockCursoModel = new Mock<CursoModel>();
+        Mock<CursoModel> mockCursoModel = new Mock<CursoModel>();
         bool ativo = true;
 
         mockCursoModel.Setup(x => x.BuscarCursos(ativo)).Throws(new Exception("Erro de teste"));
 
-        var controller = new CursosController(mockCursoModel.Object);
+        CursosController controller = new CursosController(mockCursoModel.Object);
 
         // Act
-        var response = await controller.BuscarCursos(ativo);
+        HttpResponseMessage response = await controller.BuscarCursos(ativo);
 
         // Assert
         Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
@@ -137,15 +129,15 @@ public class CursosControllerTests
     public async Task TestBuscarCurso_WhenExceptionOccurs_ReturnsInternalServerError()
     {
         // Arrange
-        var mockCursoModel = new Mock<CursoModel>();
+        Mock<CursoModel> mockCursoModel = new Mock<CursoModel>();
         int codigoCurso = 1;
 
         mockCursoModel.Setup(x => x.BuscarCurso(codigoCurso)).Throws(new Exception("Erro de teste"));
 
-        var controller = new CursosController(mockCursoModel.Object);
+        CursosController controller = new CursosController(mockCursoModel.Object);
 
         // Act
-        var response = await controller.BuscarCurso(codigoCurso);
+        HttpResponseMessage response = await controller.BuscarCurso(codigoCurso);
 
         // Assert
         Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
