@@ -13,12 +13,12 @@ namespace servico_curso.Model
     {
         private int Id;
         public string Nome;
-        private string Email;
-        private string Senha;
+        private readonly string Email;
+        private readonly string Senha;
         public bool UsuarioEncontrado;
         public bool SenhaValidada;
 
-        List<Usuario> UsuariosTeste = new List<Usuario>();
+        readonly List<Usuario> UsuariosTeste = new List<Usuario>();
 
         //usuarioCadastrado
 

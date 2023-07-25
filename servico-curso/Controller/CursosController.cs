@@ -15,9 +15,9 @@ namespace Servico_Curso.Controller
         /// <param name="ativo">Parâmetro boleano opcional que caso seja passado filtra a lista de cursos ativos ou inativos.</param>
         /// <returns></returns>
         [HttpGet]
-        public Task<List<Curso>> BuscarCursos(bool? ativo = null)
+        public Task<List<CursoModel>> BuscarCursos(bool? ativo = null)
         {
-            return Curso.BuscarCursos(ativo);
+            return CursoModel.BuscarCursos(ativo);
         }
         /// <summary>
         /// Busca as informações de um curso com base no Id informado
@@ -25,9 +25,9 @@ namespace Servico_Curso.Controller
         /// <param name="id">Parâmetro obrigatório a ser informado para realizar a busca por Id.</param>
         /// <returns></returns>
         [HttpGet]
-        public Task<Curso> BuscarCurso(int id)
+        public Task<CursoModel> BuscarCurso(int id)
         {
-            return Curso.BuscarCurso(id);
+            return CursoModel.BuscarCurso(id);
         }
     }
 }

@@ -11,11 +11,11 @@ namespace servico_curso.Repository
 {
     public static class CursoRepository
     {
-        private static string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        private static readonly string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
-        public static async Task<List<Curso>> BuscarCursos()
+        public static Task<List<CursoModel>> BuscarCursos()
         {
-            List<Curso> cursos = new List<Curso>();
+            List<CursoModel> cursos = new List<CursoModel>();
 
             try
             {
@@ -38,7 +38,7 @@ namespace servico_curso.Repository
                         {
                             while (reader.Read())
                             {
-                                Curso curso = new Curso
+                                CursoModel curso = new CursoModel
                                 {
                                     CodigoCurso = Convert.ToInt32(reader["CodigoCurso"]),
                                     NomeCurso = reader["NomeCurso"].ToString(),
@@ -60,11 +60,11 @@ namespace servico_curso.Repository
                 Console.WriteLine("Erro: " + ex.Message);
             }
 
-            return cursos;
+            return Task.FromResult(cursos);
         }
-        public static async Task<Curso> BuscarCurso(int codigoCurso)
+        public static Task<CursoModel> BuscarCurso(int codigoCurso)
         {
-            Curso curso = new Curso();
+            CursoModel curso = new CursoModel();
             try
             {
                 using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
@@ -89,7 +89,7 @@ namespace servico_curso.Repository
                         {
                             if (reader.Read())
                             {
-                                curso = new Curso
+                                curso = new CursoModel
                                 {
                                     CodigoCurso = Convert.ToInt32(reader["CodigoCurso"]),
                                     NomeCurso = reader["NomeCurso"].ToString(),
@@ -109,9 +109,9 @@ namespace servico_curso.Repository
                 // Tratar exceções, se necessário
                 Console.WriteLine("Erro: " + ex.Message);
             }
-            return curso;
+            return Task.FromResult(curso);
         }
-        public static void InserirCurso(Curso curso)
+        public static void InserirCurso(CursoModel curso)
         {
             try
             {
@@ -166,7 +166,7 @@ namespace servico_curso.Repository
                 Console.WriteLine("Erro: " + ex.Message);
             }
         }
-        public static void AlterarCurso(Curso curso)
+        public static void AlterarCurso(CursoModel curso)
         {
             try
             {

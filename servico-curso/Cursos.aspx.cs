@@ -10,8 +10,7 @@ namespace servico_curso
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-                CarregarDados();
+            CarregarDados();
         }
 
         private void CarregarDados()
@@ -30,22 +29,30 @@ namespace servico_curso
                                       PCU.valor_curso ValorCurso
                                  FROM CURSO CUR
                                  JOIN PRECO_CURSO PCU ON CUR.cod_curso = PCU.cod_curso
-                                WHERE PCU.ativo";
+                                WHERE CUR.ativo
+                                ORDER BY NomeCurso";
                 using (NpgsqlDataAdapter da = new NpgsqlDataAdapter(sql, conection))
                 {
                     DataTable dt = new DataTable();
                     da.Fill(dt);
 
-                    // Preencher o GridView com os dados da DataTable
                     GridViewCursos.DataSource = dt;
                     GridViewCursos.DataBind();
                 }
             }
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
+        protected void InsertButton_Click(object sender, EventArgs e)
         {
-
+            Response.Write("<script>window.location.href = '/Curso?modo=inserir' </script>");
+        }
+        protected void EditButton_Click(object sender, EventArgs e)
+        {
+            Response.Write("<script>window.location.href = '/Curso?modo=editar' </script>");
+        }
+        protected void DeleteButton_Click(object sender, EventArgs e)
+        {
+            Response.Write("<script>window.location.href = '/Curso?modo=deletar' </script>");
         }
     }
 }

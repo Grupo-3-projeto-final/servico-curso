@@ -7,7 +7,7 @@ using System.Web;
 
 namespace servico_curso.Model
 {
-    public class Curso
+    public class CursoModel
     {
         public int CodigoCurso { get; set; }
         public string NomeCurso { get; set; }
@@ -16,9 +16,9 @@ namespace servico_curso.Model
         public float ValorCurso { get; set; }
         public bool Ativo { get; set; }
 
-        public static async Task<List<Curso>> BuscarCursos(bool? ativo)
+        public static async Task<List<CursoModel>> BuscarCursos(bool? ativo)
         {
-            List<Curso> cursos = await CursoRepository.BuscarCursos();
+            List<CursoModel> cursos = await CursoRepository.BuscarCursos();
 
             if (ativo.HasValue)
             {
@@ -27,7 +27,7 @@ namespace servico_curso.Model
 
             return cursos;
         }
-        public static async Task<Curso> BuscarCurso(int id)
+        public static async Task<CursoModel> BuscarCurso(int id)
         {
             return await CursoRepository.BuscarCurso(id);
         }
