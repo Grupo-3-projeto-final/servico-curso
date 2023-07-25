@@ -38,6 +38,10 @@ Não há previsão para continuação do projeto neste momento.
 
 ## Colaboradores 👥
 
+- [Charles Magalhães](https://github.com/charlesmagalhaes)
+- [Baco Morettini](https://github.com/imorettini)
+- [João Vitor Guimarães](https://github.com/joaoemc2)
+- [Luana Andrade](https://github.com/Luanaap)
 - [Matheus Augusto](https://github.com/matheusaugusto61)
 - [Ricardo Alexandre](https://github.com/ricardo55991)
 - [Thiago Felipe](https://github.com/thiagonfss)
