@@ -1,7 +1,9 @@
-﻿using Microsoft.Ajax.Utilities;
+﻿using IdentityGama.Authorization;
+using Microsoft.Ajax.Utilities;
 using Npgsql;
 using servico_curso.Model;
 using System;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -9,6 +11,7 @@ namespace servico_curso
 {
     public partial class Curso : Page
     {
+        private const string RolePag = "Administrator";
         private readonly string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -54,6 +57,29 @@ namespace servico_curso
                     NomeCursoText.Visible = false;
                     NomeCursoSelect.Visible = true;
                     return;
+            }
+        }
+
+        protected override void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
+            VerifyAcessPage();
+        }
+
+        private void VerifyAcessPage()
+        {
+            HttpCookie cookie = Request.Cookies["token"];
+            if (cookie == null)
+            {
+                Response.StatusCode = 401;
+                Response.End();
+            }
+
+            var service = new AuthorizationService();
+            if (!service.IsAuthorized(cookie.Value, RolePag))
+            {
+                Response.StatusCode = 403;
+                Response.End();
             }
         }
 

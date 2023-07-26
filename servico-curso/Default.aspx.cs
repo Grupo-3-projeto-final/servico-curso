@@ -1,6 +1,12 @@
 ﻿using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
 using servico_curso.Model;
 using System;
+using System.Configuration;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.UI;
 
 namespace servico_curso
@@ -34,29 +40,36 @@ namespace servico_curso
 
             Usuario usuario = new Usuario(Email, Senha);
 
-            usuario = usuario.CarregarDadosUsuario();
+            string token = usuario.SignIn();
 
-            if (usuario == null)
+            if (token == null)
             {
-                Response.Write("<script>alert('Não existe o usuário informado cadastrado, favor entre em contato com a equipe de TI.')</script>");
+                Response.Write("<script>alert('Não existe o usuário cadastrado ou a senha está incorreta!.')</script>");
                 return;
             }
 
-            if (!usuario.UsuarioEncontrado)
-            {
-                Response.Write($"<script>alert('Não existe o usuário cadastrado para o email {Email}')</script>");
-                return;
-            }
-
-            if (!usuario.SenhaValidada)
-            {
-                Response.Write($"<script>alert('{usuario.Nome} a senha informada esta incorreta')</script>");
-                return;
-            }
+            HttpCookie MeuCookie = new HttpCookie("token", token);
+            Response.Cookies.Add(MeuCookie);
 
             // redirecionar para tela de cadastro de curso
             Response.Write("<script>window.location.href = '/Cursos' </script>");
         }
+
+        protected override void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
+            ClearCookie();
+
+
+        }
+
+        private void ClearCookie()
+        {
+            HttpCookie cookie = new HttpCookie("token");
+            cookie.Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies.Add(cookie);
+        }
+
 
     }
 }

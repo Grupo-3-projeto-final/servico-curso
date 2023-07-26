@@ -1,6 +1,13 @@
 ﻿using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web.Helpers;
 
 namespace servico_curso.Model
 {
@@ -23,49 +30,41 @@ namespace servico_curso.Model
             this.Senha = senha;
         }
 
-        public Usuario CarregarDadosUsuario()
+        internal string SignIn()
         {
-            if (Email.IsNullOrWhiteSpace())
+            dynamic loginRequest = new
+            {
+                Email = this.Email,
+                Password = this.Senha
+            };
+            string json = JsonConvert.SerializeObject(loginRequest);
+            var apiUrl = $"{ConfigurationManager.AppSettings["URLIdentityServer"]}/login";
+            try
+            {
+                HttpClient httpClient = new HttpClient();
+
+                var taskApi = httpClient.PostAsync(apiUrl, new StringContent(json, Encoding.UTF8, "application/json"));
+                taskApi.Wait();
+                var response = taskApi.Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+
+                    var taskReader = response.Content.ReadAsStringAsync();
+                    taskReader.Wait();
+
+                    string conteudo = taskReader.Result;
+
+                    var respostaJson = JsonConvert.DeserializeAnonymousType(conteudo, new { token = "" });
+
+                    return respostaJson.token;
+                }
                 return null;
-
-            //Mudar para banco
-            Usuario usuario = BuscarUsuario(Email);
-
-            if (usuario == null)
-            {
-                UsuarioEncontrado = false;
-                return this;
             }
-
-            UsuarioEncontrado = Email.Equals(usuario.Email);
-            SenhaValidada = Senha.Equals(usuario.Senha);
-            Nome = usuario.Nome;
-
-            return this;
-        }
-
-        private Usuario BuscarUsuario(string email)
-        {
-            if (!UsuariosTeste.Any())
-                CarregarUsuarios();
-
-            Usuario usuario = UsuariosTeste.Where(x => x.Email.Equals(email)).FirstOrDefault();
-
-            return usuario;
-        }
-
-        private void CarregarUsuarios()
-        {
-            UsuariosTeste.Add(new Usuario("teste1", "123")
+            catch
             {
-                Id = 1,
-                Nome = "João",
-            });
-            UsuariosTeste.Add(new Usuario("teste2", "456")
-            {
-                Id = 2,
-                Nome = "Maria"
-            });
+                return null;
+            }
         }
     }
 }
