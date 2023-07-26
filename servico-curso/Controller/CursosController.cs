@@ -1,5 +1,4 @@
-﻿
-
+﻿using IdentityGama.Filters;
 using servico_curso.Model;
 using System;
 using System.Collections.Generic;
@@ -10,6 +9,7 @@ using System.Web.Http;
 
 namespace Servico_Curso.Controller
 {
+    [Authentication]
     public class CursosController : ApiController
     {
         private readonly CursoModel _cursoModel = new CursoModel();
@@ -26,6 +26,7 @@ namespace Servico_Curso.Controller
         /// <param name="ativo">Parâmetro boleano opcional que caso seja passado filtra a lista de cursos ativos ou inativos.</param>
         /// <returns></returns>
         [HttpGet]
+        [Authentication]
         public async Task<HttpResponseMessage> BuscarCursos(bool? ativo = null)
         {
             try
