@@ -71,14 +71,16 @@ namespace servico_curso
             HttpCookie cookie = Request.Cookies["token"];
             if (cookie == null)
             {
-                Response.StatusCode = 401;
+                Response.Write("<script>alert('Você não está logado, por favor se logue!.')</script>");
+                Response.Write("<script>window.location.href = '/Default' </script>");
                 Response.End();
             }
 
             var service = new AuthorizationService();
             if (!service.IsAuthorized(cookie.Value, RolePag))
             {
-                Response.StatusCode = 403;
+                Response.Write("<script>alert('Você não tem permissão para essá pagina!.')</script>");
+                Response.Write("<script>window.location.href = '/Default' </script>");
                 Response.End();
             }
         }

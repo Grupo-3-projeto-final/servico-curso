@@ -1,4 +1,5 @@
 ﻿using IdentityGama.Filters;
+using servico_curso.Controller;
 using servico_curso.Model;
 using System;
 using System.Collections.Generic;
@@ -9,12 +10,11 @@ using System.Web.Http;
 
 namespace Servico_Curso.Controller
 {
-    [Authentication]
-    public class CursosController : ApiController
+    public class CursosController : BaseController
     {
         private readonly CursoModel _cursoModel = new CursoModel();
 
-        public CursosController() { }
+        public CursosController() {}
 
         public CursosController(CursoModel cursoModel)
         {
@@ -26,9 +26,10 @@ namespace Servico_Curso.Controller
         /// <param name="ativo">Parâmetro boleano opcional que caso seja passado filtra a lista de cursos ativos ou inativos.</param>
         /// <returns></returns>
         [HttpGet]
-        [Authentication]
         public async Task<HttpResponseMessage> BuscarCursos(bool? ativo = null)
         {
+            if(!GetAuthTokenFromRequest())
+                return Request.CreateResponse(HttpStatusCode.Unauthorized, new ApiError(HttpStatusCode.Unauthorized, "Não autorizado a acessar a essa rota"));
             try
             {
                 CursoModel curso = _cursoModel;
@@ -52,6 +53,8 @@ namespace Servico_Curso.Controller
         [HttpGet]
         public async Task<HttpResponseMessage> BuscarCurso(int id)
         {
+            if (!GetAuthTokenFromRequest())
+                return Request.CreateResponse(HttpStatusCode.Unauthorized, new ApiError(HttpStatusCode.Unauthorized, "Não autorizado a acessar a essa rota"));
             try
             {
                 CursoModel curso = _cursoModel;
